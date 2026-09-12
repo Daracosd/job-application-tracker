@@ -8,6 +8,7 @@ import './App.css';
 
 
 function App() {
+  const API_URL = "https://job-application-tracker-backend-i59f.onrender.com";
   const [applications, setApplications] =useState([]);
   const [editingId, setEditingId] = useState(null);
   const [filterStatus, setFilterStatus]=useState("All");
@@ -51,7 +52,7 @@ function App() {
     }
 
     const token= localStorage.getItem("token");
-    fetch("http://localhost:5000/api/applications",{
+    fetch(`${API_URL}/api/applications`,{
       headers:{
         Authorization: `Bearer ${token }`
       }
@@ -90,7 +91,7 @@ function App() {
 
   const handleLogin= (event)=>{
     event.preventDefault();
-    fetch("http://localhost:5000/api/auth/login",{
+    fetch(`${API_URL}/api/auth/login`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -122,7 +123,7 @@ function App() {
   const handleRegister =  (event) =>{
     event.preventDefault();
 
-    fetch("http://localhost:5000/api/auth/register", {
+    fetch(`${API_URL}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -156,7 +157,7 @@ function App() {
 
   const handleDelete= (id) =>{
     const token=localStorage.getItem("token");
-    fetch(`http://localhost:5000/api/applications/${id}`, {
+    fetch(`${API_URL}/api/applications/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`
@@ -164,7 +165,7 @@ function App() {
     })
       .then((response)=> response.json())
       .then(()=>{
-        fetch("http://localhost:5000/api/applications",{
+        fetch(`${API_URL}/api/applications`,{
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -201,8 +202,8 @@ function App() {
     const token=localStorage.getItem("token");
 
     const url= editingId
-      ? `http://localhost:5000/api/applications/${editingId}`
-      : "http://localhost:5000/api/applications";
+      ? `${API_URL}/api/applications/${editingId}`
+      : `${API_URL}/api/applications`;
 
     const method= editingId ?"PUT" : "POST"
     
@@ -218,7 +219,7 @@ function App() {
 
     .then((response)=>response.json())
     .then((newApplication)=>{
-      fetch("http://localhost:5000/api/applications",{
+      fetch(`${API_URL}/api/applications`,{
         headers: {
           Authorization: `Bearer ${token}`
         }

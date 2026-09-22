@@ -59,6 +59,7 @@ function App() {
     })
       .then((response)=>response.json())
       .then((data)=>{
+        console.log("APPLICATION API RESPONSE:", data);
         setApplications(data);
       })
       .catch((error)=>{

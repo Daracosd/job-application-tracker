@@ -64,6 +64,7 @@ function App() {
           setApplications([]);
           return null;
         }
+        return response.json();
       })
       .then((data) => {
         if(Array.isArray(data)){

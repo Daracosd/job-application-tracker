@@ -57,10 +57,18 @@ function App() {
         Authorization: `Bearer ${token }`
       }
     })
-      .then((response)=>response.json())
-      .then((data)=>{
-        console.log("APPLICATION API RESPONSE:", data);
-        setApplications(data);
+      .then((response) => {
+        if(response.status === 401){
+          localStorage.removeItem("token");
+          setLoggedIn(false);
+          setApplications([]);
+          return null;
+        }
+      })
+      .then((data) => {
+        if(Array.isArray(data)){
+          setApplications(data);
+        }
       })
       .catch((error)=>{
         console.error("Error fetching applications: ",error);
